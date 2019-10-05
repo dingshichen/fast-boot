@@ -1,0 +1,6 @@
+nacos:
+  config:
+    server-addr: 192.168.88.131:8848
+    namespace: 43d0da86-c318-4563-bdeb-90dfb3efc4e2
+    data-id: ncc
+    group: DEFAULT_GROUP

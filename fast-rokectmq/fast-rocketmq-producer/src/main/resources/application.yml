@@ -1,0 +1,7 @@
+server:
+  port: 8080
+rocketmq:
+  producer:
+    nameserver: 192.168.88.130:9876
+    retrytimes: 3
+    groupname: gp1

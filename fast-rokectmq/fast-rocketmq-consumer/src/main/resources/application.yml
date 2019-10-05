@@ -1,0 +1,10 @@
+server:
+  port: 8082
+rocketmq:
+  counsumer:
+    nameserver: 192.168.88.132:9876
+    ConsumerId: cg1
+    maxReconsumeTimes: 5
+    consumeTimeout: 30000
+    consumeThreadMin: 5
+    consumeThreadMax: 40

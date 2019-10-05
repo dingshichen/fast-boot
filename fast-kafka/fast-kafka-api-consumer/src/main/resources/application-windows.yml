@@ -1,0 +1,14 @@
+server:
+  port: 8081
+kafka:
+  consumer:
+    bootstrap.servers: 192.168.88.130:9092
+    enable.auto.commit: false
+    group.id: g1
+    client.id: g1c1
+    key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    value.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  topics:
+    topic[0]: test
+  threadcount: 20
+

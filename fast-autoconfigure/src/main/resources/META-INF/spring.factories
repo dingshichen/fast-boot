@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.dsc.conf.config.DemoAutoConfiguration,\
+cn.dsc.conf.config.order.SecondAutoConfiguration,\
+cn.dsc.conf.config.order.ThirdAutoConfiguration,\
+cn.dsc.conf.config.order.FirstAutoConfiguration
