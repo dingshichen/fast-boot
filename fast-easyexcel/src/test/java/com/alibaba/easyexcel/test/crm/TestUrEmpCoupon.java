@@ -13,21 +13,23 @@ import java.util.List;
 
 /**
  * @author dingShiChen
- * @since 2019/8/27
+ * @since 2019/10/8
  */
 @Slf4j
-public class TestCouponSql {
+public class TestUrEmpCoupon {
 
-	//生成sql模板
-	private static final String UPDATE_COUPON_PWD = "update t_coupon_entity set coupon_status = 30, is_use = 1, use_time = '%s' where coupon_code = '%s' and sys_company_id = 37 and sys_brand_id = 30;";
+	private static final String INSERT_SQL_TEMP = "insert into t_coupon_entity (sys_company_id, sys_brand_id, business_name, coupon_code, coupon_definition_id, coupon_batch_send_record_id, member_code, coupon_name, money, discount, img, info, valid_date_start, valid_date_end, send_type, coupon_status, create_date, modified_date, preferential_type) select 50, 46, '手动导入100802', '%s', coupon_definition_id, coupon_definition_id, '%s', coupon_name, money, discount, img, info, valid_date_start, valid_date_end, '111', 20, now(), now(), preferential_type from t_coupon_definition where coupon_definition_id = 2333 and sys_company_id = 50 and sys_brand_id = 46;";
+
+	private static final String SRC = "D:\\公司\\1008员工券迁移\\员工券迁移数据源1.xlsx";
+
+	private static final String DESC = "D:\\公司\\1008员工券迁移\\员工券迁移sql脚本.txt";
 
 	@Test
 	public void test(){
 		//源文件
-		String file = "D:\\公司\\0827红蜻蜓导入券\\陕西红蜻S - 副本.xlsx";
 		InputStream in = null;
 		try {
-			in = new FileInputStream(file);
+			in = new FileInputStream(SRC);
 			EasyExcelFactory.readBySax(in, new Sheet(1, 1), new AnalysisEventListener(){
 
 				List<String> sqls = new ArrayList<>();
@@ -35,7 +37,7 @@ public class TestCouponSql {
 				@Override
 				public void invoke(Object o, AnalysisContext analysisContext) {
 					ArrayList s = (ArrayList) o;
-					String sql = String.format(UPDATE_COUPON_PWD, s.get(6), s.get(2));
+					String sql = String.format(INSERT_SQL_TEMP, s.get(0), s.get(1));
 					sqls.add(sql);
 				}
 
@@ -44,7 +46,7 @@ public class TestCouponSql {
 					log.info("sql组装完毕，一共{}条语句", sqls.size());
 					BufferedWriter bw = null;
 					try {
-						bw = new BufferedWriter(new FileWriter("D:\\公司\\0827红蜻蜓导入券\\0827更新核销sql.txt"));
+						bw = new BufferedWriter(new FileWriter(DESC));
 						for (String sql : sqls) {
 							bw.write(sql);
 							bw.newLine();

@@ -24,7 +24,7 @@ public class TestExcel {
 		String file = "D:\\公司\\0910例外迁移券数据\\无标题.xlsx";
 		InputStream in = null;
 		try {
-			in = new FileInputStream(new File(file));
+			in = new FileInputStream(file);
 			EasyExcelFactory.readBySax(in, new Sheet(1, 1), new AnalysisEventListener(){
 
 				@Override
