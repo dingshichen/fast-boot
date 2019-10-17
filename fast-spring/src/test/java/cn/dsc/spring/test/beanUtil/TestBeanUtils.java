@@ -6,7 +6,9 @@ import org.springframework.beans.BeanUtils;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * BeanUtils 的使用
@@ -104,4 +106,23 @@ public class TestBeanUtils {
 		System.out.println(userInfo);
 	}
 
+	/**
+	 * 测试copy具有list属性的对象，不能迭代循环copy，类型会出问题
+	 */
+	@Test
+	public void testCopyListProperties(){
+		User user = new User();
+		user.setName("soulkey");
+		user.setPhone("17705505750");
+		user.setCreateDate(new Date());
+		Relative relative = new Relative();
+		relative.setName("martv");
+		user.setRelatives(Collections.singletonList(relative));
+		UserInfo userInfo = new UserInfo();
+		BeanUtils.copyProperties(user, userInfo);
+		System.out.println(userInfo);
+		List<Relation> relatives = userInfo.getRelatives();
+		Relation relation = relatives.get(0);
+		System.out.println(relation);
+	}
 }

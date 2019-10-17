@@ -3,6 +3,7 @@ package cn.dsc.spring.test.beanUtil;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author dingShiChen
@@ -16,4 +17,6 @@ public class User {
 	private String phone;
 
 	private Date createDate;
+
+	private List<Relative> relatives;
 }

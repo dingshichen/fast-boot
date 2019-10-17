@@ -1,0 +1,7 @@
+server:
+  port: 8081
+kafka:
+  producer:
+    bootstrap.servers: slave1.hbase.uat.com:6667,slave2.hbase.uat.com:6667,slave3.hbase.uat.com:6667
+    key.serializer: org.apache.kafka.common.serialization.StringSerializer
+    value.serializer: org.apache.kafka.common.serialization.StringSerializer
