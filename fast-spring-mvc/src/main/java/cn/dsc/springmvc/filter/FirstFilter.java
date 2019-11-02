@@ -1,10 +1,8 @@
 package cn.dsc.springmvc.filter;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 /**
@@ -13,8 +11,6 @@ import java.io.IOException;
  * @since 2019/11/2
  */
 @Slf4j
-@Order(0)
-@WebFilter(urlPatterns = "/*")	//不需要再添加@Compent注解
 public class FirstFilter implements Filter {
 
 	/**
