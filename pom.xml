@@ -31,6 +31,7 @@
         <module>fast-spring-batch</module>
         <module>fast-spring-webflux</module>
         <module>fast-jwt</module>
+        <module>fast-redis</module>
     </modules>
 
     <properties>
