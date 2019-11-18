@@ -1,7 +1,6 @@
 package cn.dsc.redis.test;
 
 import cn.dsc.redis.SpringRedisApplication;
-import cn.dsc.redis.model.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,9 +32,27 @@ public class ListValueTest {
 	private List<String> list = Arrays.asList("1", "2", "3");
 
 	@Test
-	public void setGet(){
-		redisTemplate.opsForList().leftPushAll(KEY, list);
-		List<String> values = redisTemplate.opsForList().range(KEY, 0L, -1L);
-		log.info("取出的List结果为：{}", values);
+	public void set(){
+		redisTemplate.opsForList().rightPushAll(KEY, list);
+	}
+
+	@Test
+	public void getAll(){
+		List<String> lists = redisTemplate.opsForList().range(KEY, 0, -1);
+		log.info("取出的所有集合缓存：{}", lists);
+	}
+
+	@Test
+	public void getIndex(){
+		List<String> lists = redisTemplate.opsForList().range(KEY, 1, 1);
+		log.info("取出的所有集合缓存：{}", lists);
+	}
+
+	@Test
+	public void clear(){
+		while (redisTemplate.opsForList().size(KEY) > 0){
+			log.info("rnamelist 在缓存中有值");
+			redisTemplate.opsForList().leftPop(KEY);
+		}
 	}
 }

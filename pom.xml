@@ -32,6 +32,7 @@
         <module>fast-spring-webflux</module>
         <module>fast-jwt</module>
         <module>fast-spring-mvc</module>
+        <module>fast-guava</module>
         <module>fast-redis</module>
     </modules>
 

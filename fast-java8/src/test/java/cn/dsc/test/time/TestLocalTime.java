@@ -84,8 +84,8 @@ public class TestLocalTime {
 
 	@Test
 	public void stringParseTime(){
-		String time = "2019-09-02 22:01:15";
-		LocalDateTime localDateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss"));
+		String time = "2019-09-02 00:00:00";
+		LocalDateTime localDateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		LocalDateTime result = localDateTime.plusDays(7);
 		System.out.println(result);
 		System.out.println(result.isBefore(LocalDateTime.now()));
