@@ -31,6 +31,9 @@ public class ListValueTest {
 
 	private List<String> list = Arrays.asList("1", "2", "3");
 
+	/**
+	 * 存入list
+	 */
 	@Test
 	public void set(){
 		redisTemplate.opsForList().rightPushAll(KEY, list);
