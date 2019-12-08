@@ -8,4 +8,6 @@ import cn.dsc.fasttest.model.Role;
 public interface RoleService {
 
     Role findRoleById(Long id);
+
+    Long saveRole(String name);
 }

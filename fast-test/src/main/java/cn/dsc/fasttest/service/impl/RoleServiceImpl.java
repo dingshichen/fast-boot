@@ -19,4 +19,12 @@ public class RoleServiceImpl implements RoleService {
     public Role findRoleById(Long id) {
         return roleMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public Long saveRole(String name) {
+        Role role = new Role();
+        role.setName(name);
+        roleMapper.insertSelective(role);
+        return role.getId();
+    }
 }
