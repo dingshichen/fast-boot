@@ -34,6 +34,7 @@
         <module>fast-spring-mvc</module>
         <module>fast-guava</module>
         <module>fast-redis</module>
+        <module>fast-test</module>
     </modules>
 
     <properties>
