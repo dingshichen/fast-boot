@@ -75,6 +75,8 @@ public class TestStream {
 	public void test06(){
 		Stream<Integer> istream = ints.stream().filter(e -> e < 5);
 		istream.forEach(System.out::println);
+
+		List<Integer> list = ints.stream().filter(e -> e > 5).collect(Collectors.toList());
 	}
 
 	/**
