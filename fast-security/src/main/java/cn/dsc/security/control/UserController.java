@@ -1,6 +1,8 @@
 package cn.dsc.security.control;
 
-import cn.dsc.security.common.ResponseData;
+import cn.dsc.security.common.ApiModel;
+import cn.dsc.security.model.dto.UserDTO;
+import cn.dsc.security.model.po.User;
 import cn.dsc.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,15 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
  * @author dingShiChen
  * @since 2019/7/15
  */
-@RequestMapping("/admin/home")
+@RequestMapping("/user")
 @RestController
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("{id}")
-	public ResponseData home(@PathVariable Long id){
-		return userService.getUserHome(id);
+	@GetMapping("/{id}")
+	public ApiModel<UserDTO> home(@PathVariable Long id){
+		User user = userService.findUserById(id);
+		UserDTO userDTO = new UserDTO(user.getId(), user.getName());
+		return ApiModel.success(userDTO);
 	}
 }

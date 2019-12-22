@@ -15,7 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 自定义登陆拦截器
@@ -46,7 +46,7 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
 	 */
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-		String body = StreamUtils.copyToString(request.getInputStream(), Charset.forName("UTF-8"));
+		String body = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
 		String name = null;
 		String pwd = null;
 		if(StringUtils.hasText(body)) {

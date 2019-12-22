@@ -1,7 +1,6 @@
 package cn.dsc.security.service;
 
-import cn.dsc.security.common.ResponseData;
-import cn.dsc.security.model.vo.RegistVO;
+import cn.dsc.security.model.po.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
@@ -9,7 +8,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @since 2019/7/15
  */
 public interface UserService extends UserDetailsService {
-	ResponseData regist(RegistVO vo);
 
-	ResponseData getUserHome(Long id);
+
+	User findUserById(Long id);
+
+	/**
+	 * 创建用户
+	 * @param name
+	 * @param pwd
+	 */
+    Long createUser(String name, String pwd);
 }

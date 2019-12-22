@@ -1,10 +1,12 @@
 package cn.dsc.security.control;
 
-import cn.dsc.security.common.ResponseData;
+import cn.dsc.security.common.ApiModel;
 import cn.dsc.security.model.vo.RegistVO;
 import cn.dsc.security.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -20,7 +22,10 @@ public class LoginController {
 	private UserService userService;
 
 	@PostMapping("/regist")
-	public ResponseData regist(@RequestBody RegistVO vo){
-		return userService.regist(vo);
+	public ApiModel<String> regist(@RequestBody RegistVO vo){
+		UserDetails user = userService.loadUserByUsername(vo.getName());
+		Assert.isNull(user, "用户名已存在");
+		userService.createUser(vo.getName(), vo.getPwd());
+		return ApiModel.success();
 	}
 }

@@ -1,6 +1,8 @@
 package cn.dsc.security.config;
 
-import cn.dsc.security.common.ResponseData;
+import cn.dsc.security.common.ApiModel;
+import com.alibaba.fastjson.JSON;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
@@ -22,24 +24,20 @@ import java.io.PrintWriter;
 @Component
 public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHandler {
 
-	private static final String USERNAME_NOT_FOUND = "用户名或密码输入错误，登录失败!";
-	private static final String DISABLED_EXCEPTION = "账户被禁用，登录失败，请联系管理员!";
-	private static final String NORMAL_ERROR = "登录失败!";
-
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
-		response.setContentType("application/json;charset=utf-8");
+		response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
 		PrintWriter out = response.getWriter();
-		ResponseData responseData = null;
+		ApiModel<Object> apiModel = null;
 		//todo 异常捕获不够
 		if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {
-			responseData = ResponseData.error(USERNAME_NOT_FOUND);
+			apiModel = ApiModel.fail("用户名或密码输入错误，登录失败!");
 		} else if (e instanceof DisabledException) {
-			responseData = ResponseData.error(DISABLED_EXCEPTION);
+			apiModel = ApiModel.fail("账户被禁用，登录失败，请联系管理员!");
 		} else {
-			responseData = ResponseData.error(NORMAL_ERROR);
+			apiModel = ApiModel.fail("登录失败!");
 		}
-		out.write(responseData.toJsonString());
+		out.write(JSON.toJSONString(apiModel));
 		out.flush();
 		out.close();
 	}
