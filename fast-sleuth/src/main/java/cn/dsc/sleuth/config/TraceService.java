@@ -9,4 +9,6 @@ public interface TraceService {
 	String trace();
 
 	String span();
+
+	String traceWithSpan();
 }
