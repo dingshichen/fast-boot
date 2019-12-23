@@ -37,6 +37,7 @@
         <module>fast-test</module>
         <module>fast-hutool</module>
         <module>fast-docker</module>
+        <module>fast-devtools</module>
     </modules>
 
     <developers>
