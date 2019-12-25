@@ -21,8 +21,8 @@ public class SerializableConfiguration {
      * @return
      */
     @Bean
-    public RedisTemplate<Serializable, Serializable> redisTemplate(LettuceConnectionFactory redisConnectionFactory) {
-        RedisTemplate<Serializable, Serializable> template = new RedisTemplate<>();
+    public RedisTemplate<String, Serializable> redisTemplate(LettuceConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, Serializable> template = new RedisTemplate<>();
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         template.setConnectionFactory(redisConnectionFactory);
