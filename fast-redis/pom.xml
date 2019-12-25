@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>fast-spring-redis</module>
+        <module>fast-cache</module>
     </modules>
 
     <dependencies>
@@ -30,6 +31,12 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!-- 引入 jackson 对象json转换 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
         </dependency>
     </dependencies>
 </project>
