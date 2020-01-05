@@ -1,10 +1,14 @@
 package cn.dsc.springmvc.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.stream.Collectors;
 
 /**
  * @author dingShiChen
@@ -38,6 +42,12 @@ public class ApiExceptionHandler {
 		log.error(e.getMessage(), e);
 		int index = e.getParameter().getParameterIndex();
 		return e.getBindingResult().getAllErrors().get(index).getDefaultMessage();
+	}
+
+	@ExceptionHandler(BindException.class)
+	public String handleBeanPropertyBindingResult(BindException e) {
+		log.error(e.getMessage(), e);
+		return e.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(" & "));
 	}
 
 	@ExceptionHandler(Exception.class)
