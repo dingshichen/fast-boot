@@ -38,6 +38,7 @@
         <module>fast-hutool</module>
         <module>fast-docker</module>
         <module>fast-devtools</module>
+        <module>fast-jvm</module>
     </modules>
 
     <developers>
