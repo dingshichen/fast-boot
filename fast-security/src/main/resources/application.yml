@@ -2,9 +2,9 @@ server:
   port: 8080
 spring:
   datasource:
-    url: jdbc:mysql://bizvane-2018.mysql.polardb.rds.aliyuncs.com/fast-s?useUnicode=true&characterEncoding=utf-8
-    username: bizvane_2018
-    password: SF_bizvane20180613
+    url: jdbc:mysql://localhost:3306/fast-s?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: dingshichen
     hikari:
       minimum-idle: 5
       maximum-pool-size: 15
