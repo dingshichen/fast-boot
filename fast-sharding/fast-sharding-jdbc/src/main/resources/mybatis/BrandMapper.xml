@@ -58,4 +58,7 @@
     set code = #{code,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <insert id="save">
+    insert into brand (code) values (#{code,jdbcType=VARCHAR});
+  </insert>
 </mapper>
