@@ -35,4 +35,6 @@ public interface EmpDao extends JpaRepository<EmpEntity, Long>, JpaSpecification
 	EmpEntity findBySql(@Param("phone") String phone);
 
 //	EmpEntity findByLeaveEntitie_IdAnd
+
+	void deleteByName(String name);
 }

@@ -24,7 +24,7 @@ import java.util.Objects;
 @Builder
 @Entity
 @ToString
-@Table(name = "emp", schema = "mybatis_plus")
+@Table(name = "emp", schema = "jpa")
 @DynamicInsert	//这两个注解一定要的，新增和修改时，如果没有那个属性没有值，则不拼接sql，就可以取到数据库默认值
 @DynamicUpdate
 public class EmpEntity {

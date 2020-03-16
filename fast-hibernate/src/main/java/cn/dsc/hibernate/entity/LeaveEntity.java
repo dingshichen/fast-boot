@@ -16,7 +16,7 @@ import java.util.Objects;
  * @since 2019/9/13
  */
 @Entity
-@Table(name = "leave", schema = "mybatis_plus")
+@Table(name = "leave", schema = "jpa")
 @DynamicInsert
 @DynamicUpdate
 public class LeaveEntity {
