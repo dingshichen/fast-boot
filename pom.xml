@@ -36,6 +36,7 @@
         <module>fast-hutool</module>
         <module>fast-jvm</module>
         <module>fast-sharding</module>
+        <module>fast-docker</module>
     </modules>
 
     <developers>
