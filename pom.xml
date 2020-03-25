@@ -37,6 +37,7 @@
         <module>fast-jvm</module>
         <module>fast-sharding</module>
         <module>fast-docker</module>
+        <module>fast-oss</module>
     </modules>
 
     <developers>

@@ -1,4 +1,4 @@
-package cn.dsc.shardingmini;
+package cn.dsc.oss;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author dingshichen
  */
 @SpringBootApplication
-public class ShardingminiApplication {
+public class FastOssApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ShardingminiApplication.class, args);
+        SpringApplication.run(FastOssApplication.class, args);
     }
 }
