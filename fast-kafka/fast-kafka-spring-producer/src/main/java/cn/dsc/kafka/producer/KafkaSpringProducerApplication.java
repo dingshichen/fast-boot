@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2019/6/30
  */
 @SpringBootApplication
-public class KafkaProducerApplication {
+public class KafkaSpringProducerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KafkaProducerApplication.class, args);
+		SpringApplication.run(KafkaSpringProducerApplication.class, args);
 	}
 }
