@@ -7,6 +7,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.ExecutionException;
@@ -18,8 +19,9 @@ import java.util.concurrent.ExecutionException;
  * @since 2019/6/28
  */
 @RestController
+@RequestMapping("/default")
 @RequiredArgsConstructor
-public class ProducerController {
+public class DefaultController {
 
 	private final KafkaTemplate<String, String> kafkaTemplate;
 
