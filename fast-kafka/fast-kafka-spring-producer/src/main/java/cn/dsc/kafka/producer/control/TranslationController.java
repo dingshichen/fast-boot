@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 事务消息发送
+ * 开启 kafka 发送事务消息，都需要在开启事务配置：spring.kafka.producer.transaction-id-prefix
+ * 但是如果开启了，由于 springboot 自动装配的 kafkaTemplate 是单例，所有使用 kafkaTemplate 发送消息，都需要开启事务，不然发送会报错
+ *
  * @author dingshichen
  */
 @RestController
@@ -19,8 +23,8 @@ public class TranslationController {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     /**
-     * 编码式发送事务消息，需要在开启事务配置：spring.kafka.producer.transaction-id-prefix
-     * 如果没有开启，发送时会报错
+     * 编码式发送事务消息
+     * 如果没有开启事务配置，发送时会报错
      *
      * @param topic
      * @param data
@@ -42,8 +46,8 @@ public class TranslationController {
 
 
     /**
-     * 注解式发送事务消息，也需要在开启事务配置：spring.kafka.producer.transaction-id-prefix
-     * 如果没有开启，则事务不生效，消息都会直接发送出去
+     * 注解式发送事务消息
+     * 如果没有开启事务配置，则事务不生效，消息都会直接发送出去
      *
      * @param topic
      * @param data

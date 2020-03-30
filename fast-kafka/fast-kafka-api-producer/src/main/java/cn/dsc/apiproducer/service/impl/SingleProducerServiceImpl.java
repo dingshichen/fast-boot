@@ -7,10 +7,10 @@ import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -27,7 +27,7 @@ import java.util.concurrent.Future;
 @Service
 public class SingleProducerServiceImpl implements ProducerService {
 
-	@Autowired
+	@Resource
 	private KafkaProducer<String, String> producer;
 
 	@Override

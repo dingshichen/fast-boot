@@ -10,5 +10,5 @@ kafka:
     value.deserializer: org.apache.kafka.common.serialization.StringDeserializer
   topics:
     topic[0]: test
-  threadcount: 20
+threadcount: 20
 

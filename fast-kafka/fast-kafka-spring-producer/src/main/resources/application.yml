@@ -4,5 +4,6 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      transaction-id-prefix: translation-
+      #如果使用事务发送，则所有 kafkaTemplate 发送消息都需要开启事务，不然会报错
+#      transaction-id-prefix: translation-
 #      acks: all
