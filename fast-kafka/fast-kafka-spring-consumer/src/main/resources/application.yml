@@ -1,4 +1,21 @@
-#spring:
-#  profiles:
-#    active: win10
-
+server:
+  port: 8081
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: cid
+      #      是否开启自动提交
+      enable-auto-commit: false
+      #      每次最多拉取10条数据，配合spring.kafka.listener.type=batch使用
+#      max-poll-records: 10
+      auto-commit-interval: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    # 多线程消费
+    listener:
+      # 开启批量消费
+#      type: batch
+      concurrency: 5
+      # ack模式，默认batch
+      ack-mode: batch

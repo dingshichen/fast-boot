@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    alicloud:
+      access-key: xxxxxx
+      secret-key: xxxxxx
+      oss:
+        endpoint: xxxxxx
+bocket-name: xxxxxx

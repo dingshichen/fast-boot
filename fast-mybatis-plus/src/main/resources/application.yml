@@ -2,9 +2,9 @@ spring:
   application:
     name: fast-mybatis-plus
   datasource:
-    url: jdbc:mysql://localhost:3306/mybatis_plus?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    url: jdbc:mysql://localhost:3306/jpa?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
     username: root
-    password: root
+    password: dingshichen
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       minimum-idle: 5
