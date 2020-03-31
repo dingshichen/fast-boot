@@ -17,4 +17,5 @@ spring:
       # 开启批量消费
 #      type: batch
       concurrency: 5
+      # ack模式，默认batch
       ack-mode: batch
