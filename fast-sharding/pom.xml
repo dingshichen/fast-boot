@@ -12,8 +12,7 @@
     <artifactId>fast-sharding</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>fast-sharding-jdbc</module>
-        <module>fast-sharding-mini</module>
+        <module>fast-sharding-jdbc-readwrite</module>
     </modules>
 
     <dependencyManagement>

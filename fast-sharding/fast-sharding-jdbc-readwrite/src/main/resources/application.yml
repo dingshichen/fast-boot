@@ -1,24 +1,14 @@
-server:
-  port: 8088
 spring:
-  application:
-    name: fast-sharding-jdbc
   shardingsphere:
     datasource:
-      names: db0,db1,db2
-      db0:
-        type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://localhost:3306/sharding-0
-        username: root
-        password: dingshichen
-      db1:
+      names: master,slave1
+      master:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
         jdbc-url: jdbc:mysql://localhost:3306/sharding-1
         username: root
         password: dingshichen
-      db2:
+      slave1:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
         jdbc-url: jdbc:mysql://localhost:3306/sharding-2
@@ -26,4 +16,4 @@ spring:
         password: dingshichen
 mybatis:
   mapper-locations: classpath:mybatis/*Mapper.xml
-  type-aliases-package: cn.dsc.shardingjdbc.model
+  type-aliases-package: cn.dsc.shardingjdbc.entity

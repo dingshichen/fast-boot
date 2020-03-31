@@ -1,4 +1,4 @@
-package cn.dsc.shardingjdbc.model;
+package cn.dsc.shardingjdbc.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

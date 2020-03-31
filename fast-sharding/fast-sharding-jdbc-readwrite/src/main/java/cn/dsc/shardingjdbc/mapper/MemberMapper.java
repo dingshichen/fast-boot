@@ -1,6 +1,6 @@
 package cn.dsc.shardingjdbc.mapper;
 
-import cn.dsc.shardingjdbc.model.Member;
+import cn.dsc.shardingjdbc.entity.Member;
 
 /**
  * @author dingshichen
