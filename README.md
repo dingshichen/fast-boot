@@ -8,3 +8,8 @@ fast-boot
 
 
 基础、框架、中间件code实践。
+
+---
+
+感谢 JetBrains 提供的免费开源 License：
+![https://www.jetbrains.com/?from=fastboot](jetbrans.png)
