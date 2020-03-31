@@ -12,4 +12,4 @@ fast-boot
 ---
 
 感谢 JetBrains 提供的免费开源 License：
-[![jetbrains](https://www.jetbrains.com/?from=fastboot)](jetbrans.png)
+[![jetbrains](jetbrans-logo.png)](https://www.jetbrains.com/?from=fastboot)
