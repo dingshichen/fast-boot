@@ -38,6 +38,7 @@
         <module>fast-sharding</module>
         <module>fast-docker</module>
         <module>fast-oss</module>
+        <module>fast-p6spy</module>
     </modules>
 
     <developers>
