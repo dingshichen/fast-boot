@@ -9,7 +9,9 @@ import org.junit.Test;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author dingshichen
@@ -19,7 +21,9 @@ public class FundAccountExcel {
 
     public static final String SRC = "/Users/dingshichen/Downloads/无标题.xls";
 
-    public static final String DESC = "/Users/dingshichen/Downloads/目标.sql";
+    public static final String DESC = "/Users/dingshichen/Downloads/第一步sql.sql";
+
+    public static final String ID_SRC = "/Users/dingshichen/Downloads/组织id.xls";
 
     public static final String INSERT_SQL = "insert into fund_account (id, holder_id, holder_name, holder_remark, holder_type, gmt_created) " +
             "values (%s, '%s', '%s', '%s', 1, '%s');";
@@ -28,6 +32,9 @@ public class FundAccountExcel {
 
     @Test
     public void test(){
+
+        Map<Integer, Integer> idMap = getIdMap();
+
         //源文件
         BufferedInputStream bi = null;
         try {
@@ -40,14 +47,20 @@ public class FundAccountExcel {
                 public void invoke(Object o, AnalysisContext analysisContext) {
                     ArrayList s = (ArrayList) o;
                     String id = (String) s.get(0);
-                    String holdeId = (String) s.get(0);
+
+                    String holdeId = String.valueOf(idMap.get(Integer.parseInt(id)));
+                    if (holdeId.equals("null")) {
+                        log.error("有空值 id = {}", id);
+                        throw new RuntimeException("有空值");
+                    }
+
                     String holderName = (String) s.get(1);
                     String holderRemark = (String) s.get(2);
                     String gmtCreated = (String) s.get(3);
                     String sql1 = String.format(INSERT_SQL, id, holdeId, holderName, holderRemark, gmtCreated);
-                    String sql2 = String.format(UPDATE_BALANCE, id, id);
+//                    String sql2 = String.format(UPDATE_BALANCE, id, id);
                     sqls.add(sql1);
-                    sqls.add(sql2);
+//                    sqls.add(sql2);
                 }
 
                 @Override
@@ -87,5 +100,43 @@ public class FundAccountExcel {
                 }
             }
         }
+    }
+
+
+    private Map<Integer, Integer> getIdMap() {
+        Map<Integer, Integer> map = new HashMap<>();
+        //源文件
+        BufferedInputStream bi = null;
+        try {
+            bi = new BufferedInputStream(new FileInputStream(ID_SRC));
+            EasyExcelFactory.readBySax(bi, new Sheet(1, 1), new AnalysisEventListener(){
+
+                @Override
+                public void invoke(Object o, AnalysisContext analysisContext) {
+                    ArrayList s = (ArrayList) o;
+                    String oId = (String) s.get(0);
+                    String pId = (String) s.get(1);
+                    map.put(Integer.parseInt(pId), Integer.parseInt(oId));
+                }
+
+                @Override
+                public void doAfterAllAnalysed(AnalysisContext analysisContext) {
+
+                }
+            });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bi != null) {
+                try {
+                    bi.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return map;
     }
 }
