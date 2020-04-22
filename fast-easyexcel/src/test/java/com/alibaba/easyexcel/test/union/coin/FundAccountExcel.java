@@ -21,7 +21,7 @@ public class FundAccountExcel {
 
     public static final String SRC = "/Users/dingshichen/Downloads/无标题.xls";
 
-    public static final String DESC = "/Users/dingshichen/Downloads/第一步sql.sql";
+    public static final String DESC = "/Users/dingshichen/Downloads/第二步sql.sql";
 
     public static final String ID_SRC = "/Users/dingshichen/Downloads/组织id.xls";
 
@@ -33,7 +33,7 @@ public class FundAccountExcel {
     @Test
     public void test(){
 
-        Map<Integer, Integer> idMap = getIdMap();
+//        Map<Integer, Integer> idMap = getIdMap();
 
         //源文件
         BufferedInputStream bi = null;
@@ -48,19 +48,19 @@ public class FundAccountExcel {
                     ArrayList s = (ArrayList) o;
                     String id = (String) s.get(0);
 
-                    String holdeId = String.valueOf(idMap.get(Integer.parseInt(id)));
-                    if (holdeId.equals("null")) {
-                        log.error("有空值 id = {}", id);
-                        throw new RuntimeException("有空值");
-                    }
+//                    String holdeId = String.valueOf(idMap.get(Integer.parseInt(id)));
+//                    if (holdeId.equals("null")) {
+//                        log.error("有空值 id = {}", id);
+//                        throw new RuntimeException("有空值");
+//                    }
 
                     String holderName = (String) s.get(1);
                     String holderRemark = (String) s.get(2);
                     String gmtCreated = (String) s.get(3);
-                    String sql1 = String.format(INSERT_SQL, id, holdeId, holderName, holderRemark, gmtCreated);
-//                    String sql2 = String.format(UPDATE_BALANCE, id, id);
-                    sqls.add(sql1);
-//                    sqls.add(sql2);
+//                    String sql1 = String.format(INSERT_SQL, id, holdeId, holderName, holderRemark, gmtCreated);
+                    String sql2 = String.format(UPDATE_BALANCE, id, id);
+//                    sqls.add(sql1);
+                    sqls.add(sql2);
                 }
 
                 @Override

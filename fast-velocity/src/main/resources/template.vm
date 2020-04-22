@@ -1,0 +1,17 @@
+# ${apiName}
+> ${apiDesc}
+
+* **接口** : `POST ${apiPath}`
+* **入参** : `${cmdClass}`
+* **出参** : `cn.uniondrug.common.domain.Result<${coClass}>`
+* **文件** : `${apiClass}`
+
+### 入参
+
+> ${cmdClass}
+
+| 必要性 | 类型 | 字段名 | 默认值 | 入参要求 | 描述 |
+| :-- | :-- | :-- | :-- | :-- | :-- |
+#foreach($param in ${params})
+| ${param.required} | ${param.type} | ${param.name} | ${param.value} | ${param.important} | ${param.desc} |
+#end
