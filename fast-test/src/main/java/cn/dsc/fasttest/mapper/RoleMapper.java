@@ -3,7 +3,6 @@ package cn.dsc.fasttest.mapper;
 import cn.dsc.fasttest.model.Role;
 
 public interface RoleMapper {
-
     int deleteByPrimaryKey(Long id);
 
     int insert(Role record);
