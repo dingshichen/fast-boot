@@ -41,6 +41,7 @@
         <module>fast-p6spy</module>
         <module>fast-velocity</module>
         <module>fast-doc</module>
+        <module>fast-jmx</module>
     </modules>
 
     <developers>
