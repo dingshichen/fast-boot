@@ -94,7 +94,7 @@ public class FastRedisCacheManager extends RedisCacheManager {
 
             Assert.notNull(connectionFactory, "ConnectionFactory must not be null!");
 
-            return builderFast(new FastRedisCacheWriter(connectionFactory));
+            return builderFast(RedisCacheWriter.nonLockingRedisCacheWriter(connectionFactory));
         }
 
         public static FastRedisCacheManager.FastRedisCacheManagerBuilder fromCacheWriter(RedisCacheWriter cacheWriter) {
