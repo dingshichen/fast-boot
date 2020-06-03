@@ -19,7 +19,7 @@ public class PersonServiceImpl implements PersonService {
      * @param name
      * @return
      */
-    @Cacheable(value = "PersonServiceImpl.findOne", key = "#name")
+    @Cacheable(value = "30~PersonServiceImpl.findOne", key = "#name")
     @Override
     public Person findOne(String name) {
         if (name.equals(person.getName())) {
@@ -67,7 +67,7 @@ public class PersonServiceImpl implements PersonService {
         return false;
     }
 
-    @CacheEvict(value = "PersonServiceImpl.findOne", key = "#name")    //清缓存
+    @CacheEvict(value = "30~PersonServiceImpl.findOne", key = "#name")    //清缓存
     @Override
     public boolean deleteOne(String name) {
         return true;
@@ -78,7 +78,7 @@ public class PersonServiceImpl implements PersonService {
      * @param name
      * @return
      */
-    @CacheEvict(value = "PersonServiceImpl.findOne", allEntries = true)
+    @CacheEvict(value = "30~PersonServiceImpl.findOne", allEntries = true)
     @Override
     public boolean deleteAll(String name) {
         return true;

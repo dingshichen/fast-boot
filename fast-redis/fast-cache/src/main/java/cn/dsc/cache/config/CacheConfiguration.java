@@ -5,7 +5,6 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
-import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
@@ -43,7 +42,7 @@ public class CacheConfiguration {
         RedisCacheConfiguration redisCacheConfiguration = config.entryTtl(Duration.ofDays(2L))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new JdkSerializationRedisSerializer()));
-        return RedisCacheManager.builder(factory)
+        return FastRedisCacheManager.builderFast(factory)
                 .cacheDefaults(redisCacheConfiguration)
                 .build();
     }
