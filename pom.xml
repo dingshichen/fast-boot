@@ -7,7 +7,7 @@
     <groupId>cn.dsc</groupId>
     <artifactId>fast-boot</artifactId>
     <packaging>pom</packaging>
-    <version>1.3</version>
+    <version>1.3.2</version>
     <modules>
         <module>fast-kafka</module>
         <module>fast-security</module>
@@ -42,6 +42,7 @@
         <module>fast-velocity</module>
         <module>fast-doc</module>
         <module>fast-jmx</module>
+        <module>fast-cloud</module>
     </modules>
 
     <developers>
