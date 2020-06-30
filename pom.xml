@@ -7,7 +7,7 @@
     <groupId>cn.dsc</groupId>
     <artifactId>fast-boot</artifactId>
     <packaging>pom</packaging>
-    <version>1.3.2</version>
+    <version>1.3.3</version>
     <modules>
         <module>fast-kafka</module>
         <module>fast-security</module>
@@ -91,7 +91,7 @@
         <mybatis.plus.version>3.2.0</mybatis.plus.version>
         <jwt.version>3.8.1</jwt.version>
         <hutool.version>5.1.0</hutool.version>
-        <sharding-sphere.version>4.0.0</sharding-sphere.version>
+        <sharding-sphere.version>4.1.0</sharding-sphere.version>
     </properties>
 
     <repositories>
