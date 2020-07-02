@@ -43,6 +43,7 @@
         <module>fast-doc</module>
         <module>fast-jmx</module>
         <module>fast-cloud</module>
+        <module>fast-shell</module>
     </modules>
 
     <developers>
