@@ -44,6 +44,7 @@
         <module>fast-jmx</module>
         <module>fast-cloud</module>
         <module>fast-shell</module>
+        <module>fast-jApiDoc</module>
     </modules>
 
     <developers>
