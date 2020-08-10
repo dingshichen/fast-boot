@@ -3,7 +3,7 @@
 
 * **接口** : `POST ${apiPath}`
 * **入参** : `${cmdClass}`
-* **出参** : `cn.uniondrug.common.domain.Result<${coClass}>`
+* **出参** : `cn.uniondrug.common.domain.cn.dsc.parser.dto.Result<${coClass}>`
 * **文件** : `${apiClass}`
 
 ### 入参

@@ -45,6 +45,7 @@
         <module>fast-cloud</module>
         <module>fast-shell</module>
         <module>fast-jApiDoc</module>
+        <module>fast-parser</module>
     </modules>
 
     <developers>

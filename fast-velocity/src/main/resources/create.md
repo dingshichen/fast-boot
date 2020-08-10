@@ -3,7 +3,7 @@
 
 * **接口** : `POST /fundRecord/getByTranslation`
 * **入参** : `cn.uniondrug.asset.dto.command.FundRecordGetTransCmd`
-* **出参** : `cn.uniondrug.common.domain.Result<cn.uniondrug.asset.dto.clientobject.FundRecordCO>`
+* **出参** : `cn.uniondrug.common.domain.cn.dsc.parser.dto.Result<cn.uniondrug.asset.dto.clientobject.FundRecordCO>`
 * **文件** : `cn.uniondrug.asset.control.FundRecordController`
 
 
