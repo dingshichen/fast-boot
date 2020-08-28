@@ -1,0 +1,5 @@
+{
+  "outPath": "/Users/dingshichen/CodeProject/IdeaProjects/fast/fast-boot/fast-parser",
+  "allInOne": true,
+  "packageFilters": "cn.dsc.parser.control"
+}
