@@ -16,6 +16,8 @@ public class UserGetCommand extends Command {
     /**
      * 名称
      * @description 需要填写中文名
+     * @required
+     * @mock haha
      */
     @NotEmpty
     private String name;

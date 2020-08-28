@@ -9,6 +9,8 @@ import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
 import com.github.javaparser.ast.expr.StringLiteralExpr;
+import com.github.javaparser.ast.nodeTypes.NodeWithJavadoc;
+import com.github.javaparser.ast.nodeTypes.NodeWithSimpleName;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.type.Type;
 import com.google.common.collect.Lists;
@@ -39,11 +41,11 @@ public class TestParser {
         ClassOrInterfaceDeclaration controller = compilationUnit.findFirst(ClassOrInterfaceDeclaration.class)
                 .orElseThrow(RuntimeException::new);
         //类名
-        String controllerName = getControllerName(controller);
+        String controllerName = getClassSingleName(controller);
         System.out.println("类名 : " + controllerName);
 
         //全限定名
-        String controllerFullName = getFullControllerName(controller);
+        String controllerFullName = getClassFullName(controller);
         System.out.println("类全限定名 : " + controllerFullName);
 
         //接口父路径
@@ -74,11 +76,11 @@ public class TestParser {
         System.out.println("最终接口路径 : " + realPath);
 
         //获取接口作者
-        String methodAuthor = getMethodAuthor(method);
+        String methodAuthor = getAuthor(method);
         System.out.println("接口作者 : " + methodAuthor);
 
         //获取接口描述
-        String methodDescription = getMethodDescription(method);
+        String methodDescription = getDescription(method);
         System.out.println("接口描述 : " + methodDescription);
 
         //获取接口入参
@@ -98,14 +100,13 @@ public class TestParser {
         Optional<NodeList<Type>> typeArguments = returnType.getTypeArguments();
         NodeList<Type> types = typeArguments.orElseThrow(RuntimeException::new);
         ClassOrInterfaceType arg = types.get(0).asClassOrInterfaceType();
-        String nameAsString = arg.getNameAsString();
-        if (Objects.equals("PagingBody", nameAsString)) {
+        String classSingleName = getClassSingleName(arg);
+        if (Objects.equals("PagingBody", classSingleName)) {
             NodeList<Type> nodes = arg.getTypeArguments().orElseThrow(RuntimeException::new);
-            processParameter(nodes.get(0).asClassOrInterfaceType().getNameAsString(), filePath, compilationUnit);
-        } else {
-            processParameter(nameAsString, filePath, compilationUnit);
+            ClassOrInterfaceType node = nodes.get(0).asClassOrInterfaceType();
+            classSingleName = getClassSingleName(node);
         }
-
+        processParameter(classSingleName, filePath, compilationUnit);
     }
 
     /**
@@ -133,19 +134,19 @@ public class TestParser {
 
     /**
      * 处理入参
-     * @param parameterTypeString 字段类型简单类名
+     * @param typeSingleName 字段类型类简名
      * @param parentFilePath 所在文件的绝对路径
      * @param compilationUnit 上级 CompilationUnit
      */
     @SneakyThrows
-    private void processParameter(String parameterTypeString, String parentFilePath, CompilationUnit compilationUnit) {
+    private void processParameter(String typeSingleName, String parentFilePath, CompilationUnit compilationUnit) {
         //找到入参的那个导包
         Optional<ImportDeclaration> importDeclarationOptional = compilationUnit.getImports()
                 .stream()
-                .filter(e -> e.getNameAsString().endsWith(parameterTypeString))
+                .filter(e -> e.getNameAsString().endsWith(typeSingleName))
                 .findFirst();
         //获取参数 class 文件
-        File file = getParameterFile(parameterTypeString, parentFilePath, importDeclarationOptional);
+        File file = getParameterFile(typeSingleName, parentFilePath, importDeclarationOptional);
         CompilationUnit parameterUnit = StaticJavaParser.parse(file);
         ClassOrInterfaceDeclaration cmd = parameterUnit.findFirst(ClassOrInterfaceDeclaration.class)
                 .orElseThrow(RuntimeException::new);
@@ -287,12 +288,12 @@ public class TestParser {
     /**
      * 获取入参 file
      *
-     * @param parameterTypeString
+     * @param typeSingleName
      * @param parentFilePath
      * @param importDeclarationOptional
      * @return
      */
-    private File getParameterFile(String parameterTypeString, String parentFilePath, Optional<ImportDeclaration> importDeclarationOptional) {
+    private File getParameterFile(String typeSingleName, String parentFilePath, Optional<ImportDeclaration> importDeclarationOptional) {
         if (importDeclarationOptional.isPresent()) {
             String nameAsString = importDeclarationOptional.get().getNameAsString();
             String replace = nameAsString.replace(".", "/");
@@ -300,7 +301,7 @@ public class TestParser {
             return new File(parentFilePath.substring(0, i + 15) + replace + ".java");
         } else {
             int i = parentFilePath.lastIndexOf("/");
-            return new File(parentFilePath.substring(0, i + 1) + parameterTypeString + ".java");
+            return new File(parentFilePath.substring(0, i + 1) + typeSingleName + ".java");
         }
     }
 
@@ -318,28 +319,6 @@ public class TestParser {
             }
         }
         throw new RuntimeException("目前只支持入参在 requestBody 中的解口");
-    }
-
-    /**
-     * 获取接口描述
-     * @param method
-     * @return
-     */
-    private String getMethodDescription(MethodDeclaration method) {
-        JavadocComment javadocComment = method.getJavadocComment()
-                .orElseThrow(RuntimeException::new);
-        return getCommentValue(javadocComment, "@description");
-    }
-
-    /**
-     * 获取方法作者
-     * @param method
-     * @return
-     */
-    private String getMethodAuthor(MethodDeclaration method) {
-        JavadocComment javadocComment = method.getJavadocComment()
-                .orElseThrow(RuntimeException::new);
-        return getCommentValue(javadocComment, "@author");
     }
 
     /**
@@ -384,12 +363,8 @@ public class TestParser {
      */
     private String getMethodPath(MethodDeclaration method) {
         Optional<AnnotationExpr> optional = method.getAnnotationByName("PostMapping");
-        SingleMemberAnnotationExpr annotationExpr = optional
-                .orElseThrow(() -> new RuntimeException("目前只支持 @PostMapping 注解的接口，后续正在计划"))
-                .asSingleMemberAnnotationExpr();
-        return annotationExpr.getMemberValue()
-                .asStringLiteralExpr()
-                .asString();
+        AnnotationExpr annotationExpr = optional.orElseThrow(() -> new RuntimeException("目前只支持 @PostMapping 注解的接口，后续正在计划"));
+        return getAnnotationValue(annotationExpr);
     }
 
     /**
@@ -407,28 +382,28 @@ public class TestParser {
 
     /**
      * 获取描述
-     * @param controller
+     * @param nodeWithJavadoc
      * @return
      */
-    private String getDescription(ClassOrInterfaceDeclaration controller) {
-        JavadocComment javadocComment = controller.getJavadocComment()
+    private String getDescription(NodeWithJavadoc<?> nodeWithJavadoc) {
+        JavadocComment javadocComment = nodeWithJavadoc.getJavadocComment()
                 .orElseThrow(RuntimeException::new);
         return getCommentValue(javadocComment, "@description");
     }
 
     /**
      * 获取作者
-     * @param controller
+     * @param nodeWithJavadoc
      * @return
      */
-    private String getAuthor(ClassOrInterfaceDeclaration controller) {
-        JavadocComment javadocComment = controller.getJavadocComment()
+    private String getAuthor(NodeWithJavadoc<?> nodeWithJavadoc) {
+        JavadocComment javadocComment = nodeWithJavadoc.getJavadocComment()
                 .orElseThrow(RuntimeException::new);
         return getCommentValue(javadocComment, "@author");
     }
 
     /**
-     * 获取注释
+     * 获取指定注释的值
      * @param javadocComment
      * @param commentName
      * @return
@@ -450,30 +425,36 @@ public class TestParser {
      */
     private String getParentPath(ClassOrInterfaceDeclaration controller) {
         Optional<AnnotationExpr> optionalAnnotationExpr = controller.getAnnotationByName("RequestMapping");
-        if (optionalAnnotationExpr.isPresent()) {
-            SingleMemberAnnotationExpr singleMemberAnnotationExpr = optionalAnnotationExpr.get().asSingleMemberAnnotationExpr();
-            StringLiteralExpr stringLiteralExpr = singleMemberAnnotationExpr.getMemberValue().asStringLiteralExpr();
-            return stringLiteralExpr.asString();
-        }
-        return null;
+        return optionalAnnotationExpr.map(this::getAnnotationValue).orElse(null);
     }
 
     /**
-     * 类名
-     * @param controller
+     * 获取类简称
+     * @param nodeWithSimpleName
      * @return
      */
-    private String getControllerName(ClassOrInterfaceDeclaration controller) {
-        return controller.getNameAsString();
+    private String getClassSingleName(NodeWithSimpleName<?> nodeWithSimpleName) {
+        return nodeWithSimpleName.getNameAsString();
     }
 
     /**
-     * 全限定名
-     * @param controller
+     * 获取类全限定名
+     * @param classOrInterfaceDeclaration
      * @return
      */
-    private String getFullControllerName(ClassOrInterfaceDeclaration controller) {
-        return controller.getFullyQualifiedName()
-                .orElse(getControllerName(controller));
+    private String getClassFullName(ClassOrInterfaceDeclaration classOrInterfaceDeclaration) {
+        return classOrInterfaceDeclaration.getFullyQualifiedName()
+                .orElseThrow(() -> new RuntimeException("获取不到正确的类全限定名"));
+    }
+
+    /**
+     * 获取注解的值
+     * @param annotationExpr
+     * @return
+     */
+    private String getAnnotationValue(AnnotationExpr annotationExpr) {
+        SingleMemberAnnotationExpr singleMemberAnnotationExpr = annotationExpr.asSingleMemberAnnotationExpr();
+        StringLiteralExpr stringLiteralExpr = singleMemberAnnotationExpr.getMemberValue().asStringLiteralExpr();
+        return stringLiteralExpr.asString();
     }
 }
