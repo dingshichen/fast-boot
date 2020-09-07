@@ -40,7 +40,6 @@
         <module>fast-oss</module>
         <module>fast-p6spy</module>
         <module>fast-velocity</module>
-        <module>fast-doc</module>
         <module>fast-jmx</module>
         <module>fast-shell</module>
         <module>fast-jApiDoc</module>
