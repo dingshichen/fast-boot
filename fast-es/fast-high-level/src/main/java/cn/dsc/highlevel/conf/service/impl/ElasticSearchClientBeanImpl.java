@@ -5,6 +5,7 @@ import cn.dsc.highlevel.conf.service.ElasticSearchClientBean;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 
 import java.io.IOException;
@@ -26,7 +27,9 @@ public class ElasticSearchClientBeanImpl implements ElasticSearchClientBean {
 
 	@Override
 	public void init() {
-		this.client = new RestHighLevelClient(RestClient.builder(new HttpHost(elasticSearchClientProperties.getHost(), elasticSearchClientProperties.getPort())));
+		HttpHost httpHost = new HttpHost(elasticSearchClientProperties.getHost(), elasticSearchClientProperties.getPort());
+		RestClientBuilder restClientBuilder = RestClient.builder(httpHost);
+		this.client = new RestHighLevelClient(restClientBuilder);
 		log.info("RestHighLevelClient build success");
 	}
 

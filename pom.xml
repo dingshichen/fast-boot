@@ -42,7 +42,6 @@
         <module>fast-velocity</module>
         <module>fast-doc</module>
         <module>fast-jmx</module>
-        <module>fast-cloud</module>
         <module>fast-shell</module>
         <module>fast-jApiDoc</module>
         <module>fast-parser</module>
