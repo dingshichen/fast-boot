@@ -44,6 +44,7 @@
         <module>fast-shell</module>
         <module>fast-jApiDoc</module>
         <module>fast-parser</module>
+        <module>fast-mapstruct</module>
     </modules>
 
     <developers>
