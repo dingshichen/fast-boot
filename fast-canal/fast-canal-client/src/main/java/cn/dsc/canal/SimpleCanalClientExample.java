@@ -72,6 +72,10 @@ public class SimpleCanalClientExample {
                     entry.getHeader().getSchemaName(), entry.getHeader().getTableName(),
                     eventType);
 
+            if (rowChage.getIsDdl()) {
+                System.out.printf("DDL SQL : %s", rowChage.getSql());
+            }
+
             for (RowData rowData : rowChage.getRowDatasList()) {
                 if (eventType == EventType.DELETE) {
                     printColumn(rowData.getBeforeColumnsList());
