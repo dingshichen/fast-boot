@@ -46,6 +46,7 @@
         <module>fast-parser</module>
         <module>fast-mapstruct</module>
         <module>fast-secret-sign</module>
+        <module>fast-canal</module>
     </modules>
 
     <developers>
