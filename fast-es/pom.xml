@@ -16,7 +16,7 @@
     </modules>
 
     <properties>
-        <elasticsearch.version>7.3.0</elasticsearch.version>
+        <elasticsearch.version>7.11.2</elasticsearch.version>
     </properties>
 
     <!-- 先在项目的上级定义es驱动的版本，不然会被springboot依赖的低版本覆盖 -->
